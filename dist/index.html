@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#070814">
+  <meta name="description" content="입체도형 지냄을 모으고 끝없는 냄새 던전에 도전하는 턴제 로그라이트 게임">
+  <title>성지몬 — 냄새 차원 로그라이트</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23c6ff4a' d='M32 3 57 18v28L32 61 7 46V18z'/%3E%3Cpath fill='%23070814' d='m32 12 16 10v19L32 51 16 41V22z'/%3E%3Ccircle cx='26' cy='30' r='3' fill='%23c6ff4a'/%3E%3Ccircle cx='38' cy='30' r='3' fill='%23c6ff4a'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <main id="app" class="app-shell">
+    <header class="topbar">
+      <button class="brand" data-go="lobby" aria-label="로비로 이동">
+        <span class="brand-mark">S</span>
+        <span><strong>성지몬</strong><small>SMELL DIMENSION</small></span>
+      </button>
+      <div class="resources" aria-label="보유 자원">
+        <div><span>🎟</span><b id="ticket-count">0</b><small>티켓</small></div>
+        <div><span>◆</span><b id="owned-count">1</b><small>도감</small></div>
+        <button id="sound-toggle" class="icon-button" aria-label="소리 켜기 또는 끄기">♪</button>
+      </div>
+    </header>
+
+    <section id="screen-lobby" class="screen active lobby-screen">
+      <div class="lobby-copy">
+        <p class="eyebrow">차원 균열 감지 · 시즌 01</p>
+        <h1>냄새가<br><em>입체가 됐다.</em></h1>
+        <p class="lead">지냄을 편성하고 냄새 던전을 돌파해라. 쓰러지면 이번 원정은 끝나지만, 획득한 지냄과 티켓은 남는다.</p>
+        <div class="lobby-actions">
+          <button id="start-run" class="primary-button">던전 진입 <span>→</span></button>
+          <button class="secondary-button" data-go="gacha">지냄 뽑기</button>
+        </div>
+        <p class="safe-note">뽑기는 던전에서 얻은 무료 티켓만 사용하며 유료 결제는 없다.</p>
+      </div>
+      <div class="lobby-display" aria-label="대표 지냄 전시">
+        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+        <div id="hero-monster" class="monster-figure shape-cube grade-fragrance"><span class="face-dot left"></span><span class="face-dot right"></span></div>
+        <div class="hero-label"><span>FRAGRANCE</span><strong>새벽 복도를 배회하는<br>미세한 지온냄새</strong></div>
+        <div class="stat-chip chip-a"><small>속성</small><b>잔향</b></div>
+        <div class="stat-chip chip-b"><small>형태</small><b>정육면체</b></div>
+      </div>
+      <nav class="dock" aria-label="주 메뉴">
+        <button class="active" data-go="lobby">⌂<span>로비</span></button>
+        <button data-go="collection">◇<span>도감</span></button>
+        <button data-go="gacha">✦<span>뽑기</span></button>
+      </nav>
+    </section>
+
+    <section id="screen-battle" class="screen battle-screen">
+      <div class="run-header">
+        <button id="abandon-run" class="text-button">← 원정 포기</button>
+        <div class="floor-track"><span id="floor-label">1구역</span><div id="floor-pips"></div></div>
+        <div class="run-tickets">이번 원정 <b id="run-tickets">0</b> 🎟</div>
+      </div>
+      <div class="arena">
+        <div class="combatant enemy-side">
+          <div class="nameplate"><div><span id="enemy-grade">AROMA</span><strong id="enemy-name">환풍구를 역주행하는 지온냄새</strong></div><b id="enemy-level">Lv.2</b></div>
+          <div class="hp-row"><div class="hp-track"><i id="enemy-hp"></i></div><span id="enemy-hp-text">72 / 72</span></div>
+          <div class="stage enemy-stage"><div id="enemy-figure" class="monster-figure shape-tetra grade-aroma"><span class="face-dot left"></span><span class="face-dot right"></span></div><div class="shadow"></div></div>
+        </div>
+        <div class="versus">VS</div>
+        <div class="combatant player-side">
+          <div class="stage player-stage"><div id="player-figure" class="monster-figure shape-cube grade-fragrance"><span class="face-dot left"></span><span class="face-dot right"></span></div><div class="shadow"></div></div>
+          <div class="nameplate"><div><span id="player-grade">FRAGRANCE</span><strong id="player-name">새벽 복도를 배회하는 미세한 지온냄새</strong></div><b id="player-level">Lv.1</b></div>
+          <div class="hp-row"><div class="hp-track"><i id="player-hp"></i></div><span id="player-hp-text">88 / 88</span></div>
+        </div>
+      </div>
+      <div class="battle-console">
+        <div id="battle-log" class="battle-log" aria-live="polite">공간이 일그러지며 지냄이 나타났다.</div>
+        <div id="move-grid" class="move-grid"></div>
+      </div>
+    </section>
+
+    <section id="screen-gacha" class="screen gacha-screen">
+      <div class="section-head"><div><p class="eyebrow">DIMENSION SUMMON</p><h2>차원 뽑기</h2></div><button class="close-button" data-go="lobby">×</button></div>
+      <div class="summon-machine">
+        <div class="summon-core"><span>?</span><i></i><i></i><i></i></div>
+        <h3>냄새 차원의 균열</h3>
+        <p>티켓 한 장으로 무작위 지냄을 소환한다.<br>30회 안에 Smell 이상이 반드시 출현한다.</p>
+        <div class="odds" id="odds-list"></div>
+        <button id="pull-once" class="primary-button">1회 소환 <span>🎟 1</span></button>
+        <small id="pity-text">Smell 이상 확정까지 30회</small>
+      </div>
+      <nav class="dock" aria-label="주 메뉴"><button data-go="lobby">⌂<span>로비</span></button><button data-go="collection">◇<span>도감</span></button><button class="active" data-go="gacha">✦<span>뽑기</span></button></nav>
+    </section>
+
+    <section id="screen-collection" class="screen collection-screen">
+      <div class="section-head"><div><p class="eyebrow">JINAEM ARCHIVE</p><h2>지냄 도감</h2></div><button class="close-button" data-go="lobby">×</button></div>
+      <div id="grade-filters" class="filters"></div>
+      <div id="collection-grid" class="collection-grid"></div>
+      <nav class="dock" aria-label="주 메뉴"><button data-go="lobby">⌂<span>로비</span></button><button class="active" data-go="collection">◇<span>도감</span></button><button data-go="gacha">✦<span>뽑기</span></button></nav>
+    </section>
+
+    <section id="screen-gameover" class="screen result-screen">
+      <p class="eyebrow">EXPEDITION OVER</p><h2>잔향만 남았다.</h2>
+      <div class="result-shape"><div class="monster-figure shape-cube grade-fragrance defeated"></div></div>
+      <div class="result-stats"><div><small>도달 구역</small><b id="result-floor">1</b></div><div><small>격파한 지냄</small><b id="result-wins">0</b></div><div><small>획득 티켓</small><b id="result-tickets">0</b></div></div>
+      <button id="retry-run" class="primary-button">다시 도전 <span>↻</span></button><button class="secondary-button" data-go="lobby">로비로</button>
+    </section>
+  </main>
+
+  <div id="summon-overlay" class="summon-overlay" role="dialog" aria-modal="true" aria-labelledby="summon-result-name">
+    <div class="summon-rays"></div><p id="summon-result-grade">SCENT</p><div id="summon-result-figure" class="monster-figure shape-octa grade-scent"></div><h2 id="summon-result-name">도시 한 블록을 감싸는 지온냄새</h2><p id="summon-new">NEW!</p><button id="summon-close" class="primary-button">확인</button>
+  </div>
+  <div id="reward-overlay" class="reward-overlay" role="dialog" aria-modal="true"><div class="reward-card"><p class="eyebrow">ROOM CLEAR</p><h2>전리품 선택</h2><div id="reward-options"></div></div></div>
+  <div id="toast" class="toast" aria-live="polite"></div>
+  <script src="game.js"></script>
+</body>
+</html>
