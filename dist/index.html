@@ -27,10 +27,10 @@
     <section id="screen-lobby" class="screen active lobby-screen">
       <div class="lobby-copy">
         <p class="eyebrow">차원 균열 감지 · 시즌 01</p>
-        <h1>냄새가<br><em>입체가 됐다.</em></h1>
+        <h1>지냄으로<br><em>세상을 제패해라.</em></h1>
         <p class="lead">지냄을 편성하고 냄새 던전을 돌파해라. 쓰러지면 이번 원정은 끝나지만, 획득한 지냄과 티켓은 남는다.</p>
         <div class="lobby-actions">
-          <button id="start-run" class="primary-button">던전 진입 <span>→</span></button>
+          <button id="start-run" class="primary-button">던전 선택 <span>→</span></button>
           <button class="secondary-button" data-go="gacha">지냄 뽑기</button>
         </div>
         <p class="safe-note">뽑기는 던전에서 얻은 무료 티켓만 사용하며 유료 결제는 없다.</p>
@@ -49,6 +49,11 @@
       </nav>
     </section>
 
+    <section id="screen-dungeons" class="screen dungeon-screen">
+      <div class="section-head"><div><p class="eyebrow">SELECT EXPEDITION</p><h2>던전 선택</h2><p class="section-copy">난이도가 높을수록 강한 지냄이 출현하고 완주 보상이 커진다.</p></div><button class="close-button" data-go="lobby">×</button></div>
+      <div id="dungeon-grid" class="dungeon-grid"></div>
+    </section>
+
     <section id="screen-battle" class="screen battle-screen">
       <div class="run-header">
         <button id="abandon-run" class="text-button">← 원정 포기</button>
@@ -56,16 +61,18 @@
         <div class="run-tickets">이번 원정 <b id="run-tickets">0</b> 🎟</div>
       </div>
       <div class="arena">
-        <div class="combatant enemy-side">
-          <div class="nameplate"><div><span id="enemy-grade">AROMA</span><strong id="enemy-name">환풍구를 역주행하는 지온냄새</strong></div><b id="enemy-level">Lv.2</b></div>
-          <div class="hp-row"><div class="hp-track"><i id="enemy-hp"></i></div><span id="enemy-hp-text">72 / 72</span></div>
-          <div class="stage enemy-stage"><div id="enemy-figure" class="monster-figure shape-tetra grade-aroma"><span class="face-dot left"></span><span class="face-dot right"></span></div><div class="shadow"></div></div>
-        </div>
-        <div class="versus">VS</div>
         <div class="combatant player-side">
           <div class="stage player-stage"><div id="player-figure" class="monster-figure shape-cube grade-fragrance"><span class="face-dot left"></span><span class="face-dot right"></span></div><div class="shadow"></div></div>
-          <div class="nameplate"><div><span id="player-grade">FRAGRANCE</span><strong id="player-name">새벽 복도를 배회하는 미세한 지온냄새</strong></div><b id="player-level">Lv.1</b></div>
+          <div class="nameplate"><div><span id="player-grade">FRAGRANCE</span><strong><i class="player-tag">PLAYER</i><span id="player-name">새벽 복도를 배회하는 미세한 지온냄새</span></strong><small id="player-ability" class="ability-line"></small></div><b id="player-level">Lv.1</b></div>
           <div class="hp-row"><div class="hp-track"><i id="player-hp"></i></div><span id="player-hp-text">88 / 88</span></div>
+          <div id="player-status" class="status-row"></div>
+        </div>
+        <div class="versus">VS</div>
+        <div class="combatant enemy-side">
+          <div class="nameplate"><div><span id="enemy-grade">AROMA</span><strong><span id="enemy-name">환풍구를 역주행하는 지온냄새</span></strong><small id="enemy-ability" class="ability-line"></small></div><b id="enemy-level">Lv.2</b></div>
+          <div class="hp-row"><div class="hp-track"><i id="enemy-hp"></i></div><span id="enemy-hp-text">72 / 72</span></div>
+          <div id="enemy-status" class="status-row"></div>
+          <div class="stage enemy-stage"><div id="enemy-figure" class="monster-figure shape-tetra grade-aroma"><span class="face-dot left"></span><span class="face-dot right"></span></div><div class="shadow"></div></div>
         </div>
       </div>
       <div class="battle-console">
