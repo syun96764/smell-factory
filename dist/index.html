@@ -20,6 +20,7 @@
       <div class="resources" aria-label="보유 자원">
         <div><span>🎟</span><b id="ticket-count">0</b><small>티켓</small></div>
         <div><span>◆</span><b id="owned-count">1</b><small>도감</small></div>
+        <button id="achievements-open" class="resource-button" aria-label="업적 보기"><span>🏆</span><b id="achievement-count">0</b><small>업적</small></button>
         <button id="sound-toggle" class="icon-button" aria-label="소리 켜기 또는 끄기">♪</button>
       </div>
     </header>
@@ -32,6 +33,7 @@
         <div class="lobby-actions">
           <button id="start-run" class="primary-button">던전 선택 <span>→</span></button>
           <button class="secondary-button" data-go="gacha">지냄 뽑기</button>
+          <button class="secondary-button" data-go="achievements">업적</button>
         </div>
         <p class="safe-note">뽑기는 던전에서 얻은 무료 티켓만 사용하며 유료 결제는 없다.</p>
       </div>
@@ -54,6 +56,12 @@
       <div id="dungeon-grid" class="dungeon-grid"></div>
     </section>
 
+    <section id="screen-team" class="screen team-screen">
+      <div class="section-head"><div><p class="eyebrow">CHOOSE YOUR JINAEM</p><h2>출전 지냄 선택</h2><p id="team-dungeon-info" class="section-copy"></p></div><button class="close-button" data-go="dungeons">×</button></div>
+      <div id="team-grid" class="team-grid"></div>
+      <div class="team-confirm"><div id="selected-summary">출전할 지냄을 선택해라.</div><button id="confirm-team" class="primary-button" disabled>이 지냄으로 진입 <span>→</span></button></div>
+    </section>
+
     <section id="screen-battle" class="screen battle-screen">
       <div class="run-header">
         <button id="abandon-run" class="text-button">← 원정 포기</button>
@@ -63,13 +71,13 @@
       <div class="arena">
         <div class="combatant player-side">
           <div class="stage player-stage"><div id="player-figure" class="monster-figure shape-cube grade-fragrance"><span class="face-dot left"></span><span class="face-dot right"></span></div><div class="shadow"></div></div>
-          <div class="nameplate"><div><span id="player-grade">FRAGRANCE</span><strong><i class="player-tag">PLAYER</i><span id="player-name">새벽 복도를 배회하는 미세한 지온냄새</span></strong><small id="player-ability" class="ability-line"></small></div><b id="player-level">Lv.1</b></div>
+          <div class="nameplate"><div><span id="player-grade">FRAGRANCE</span><strong><i class="player-tag">PLAYER</i><span id="player-name">새벽 복도를 배회하는 미세한 지온냄새</span></strong><div id="player-types" class="type-row"></div><small id="player-ability" class="ability-line"></small></div><b id="player-level">Lv.1</b></div>
           <div class="hp-row"><div class="hp-track"><i id="player-hp"></i></div><span id="player-hp-text">88 / 88</span></div>
           <div id="player-status" class="status-row"></div>
         </div>
         <div class="versus">VS</div>
         <div class="combatant enemy-side">
-          <div class="nameplate"><div><span id="enemy-grade">AROMA</span><strong><span id="enemy-name">환풍구를 역주행하는 지온냄새</span></strong><small id="enemy-ability" class="ability-line"></small></div><b id="enemy-level">Lv.2</b></div>
+          <div class="nameplate"><div><span id="enemy-grade">AROMA</span><strong><span id="enemy-name">환풍구를 역주행하는 지온냄새</span></strong><div id="enemy-types" class="type-row"></div><small id="enemy-ability" class="ability-line"></small></div><b id="enemy-level">Lv.2</b></div>
           <div class="hp-row"><div class="hp-track"><i id="enemy-hp"></i></div><span id="enemy-hp-text">72 / 72</span></div>
           <div id="enemy-status" class="status-row"></div>
           <div class="stage enemy-stage"><div id="enemy-figure" class="monster-figure shape-tetra grade-aroma"><span class="face-dot left"></span><span class="face-dot right"></span></div><div class="shadow"></div></div>
@@ -101,6 +109,16 @@
       <nav class="dock" aria-label="주 메뉴"><button data-go="lobby">⌂<span>로비</span></button><button class="active" data-go="collection">◇<span>도감</span></button><button data-go="gacha">✦<span>뽑기</span></button></nav>
     </section>
 
+    <section id="screen-detail" class="screen detail-screen">
+      <div class="section-head"><div><p class="eyebrow">JINAEM DATA FILE</p><h2>지냄 상세정보</h2></div><button class="close-button" data-go="collection">×</button></div>
+      <div id="detail-content" class="detail-content"></div>
+    </section>
+
+    <section id="screen-achievements" class="screen achievements-screen">
+      <div class="section-head"><div><p class="eyebrow">ACHIEVEMENT BOARD</p><h2>업적</h2><p class="section-copy">조건을 달성하면 자동으로 기록되고 최초 달성 보상을 받는다.</p></div><button class="close-button" data-go="lobby">×</button></div>
+      <div id="achievement-grid" class="achievement-grid"></div>
+    </section>
+
     <section id="screen-gameover" class="screen result-screen">
       <p class="eyebrow">EXPEDITION OVER</p><h2>잔향만 남았다.</h2>
       <div class="result-shape"><div class="monster-figure shape-cube grade-fragrance defeated"></div></div>
@@ -112,8 +130,9 @@
   <div id="summon-overlay" class="summon-overlay" role="dialog" aria-modal="true" aria-labelledby="summon-result-name">
     <div class="summon-rays"></div><p id="summon-result-grade">SCENT</p><div id="summon-result-figure" class="monster-figure shape-octa grade-scent"></div><h2 id="summon-result-name">도시 한 블록을 감싸는 지온냄새</h2><p id="summon-new">NEW!</p><button id="summon-close" class="primary-button">확인</button>
   </div>
-  <div id="reward-overlay" class="reward-overlay" role="dialog" aria-modal="true"><div class="reward-card"><p class="eyebrow">ROOM CLEAR</p><h2>전리품 선택</h2><div id="reward-options"></div></div></div>
+  <div id="reward-overlay" class="reward-overlay" role="dialog" aria-modal="true"><div class="reward-card"><p id="reward-quality" class="eyebrow">ROOM CLEAR</p><h2>전리품 선택</h2><p id="reward-context" class="reward-context"></p><div id="reward-options"></div></div></div>
   <div id="toast" class="toast" aria-live="polite"></div>
+  <script src="data.js"></script>
   <script src="game.js"></script>
 </body>
 </html>
