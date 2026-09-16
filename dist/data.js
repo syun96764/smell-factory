@@ -1,3 +1,4 @@
+(()=>{
 const GRADES=[
  {id:'fragrance',label:'Fragrance',odds:45,color:'#c6ff4a'},{id:'aroma',label:'Aroma',odds:28,color:'#42f5cd'},
  {id:'scent',label:'Scent',odds:15,color:'#54a8ff'},{id:'odor',label:'Odor',odds:8,color:'#c066ff'},
@@ -74,3 +75,4 @@ const ACHIEVEMENTS=[
  {id:'rich',icon:'🎟',name:'균열 티켓 부자',desc:'티켓을 15장 이상 보유한다.',reward:3}
 ];
 window.GAME_DATA={GRADES,TYPES,TYPE_STRONG,ABILITIES,MONSTERS,MOVES,MOVE_SETS,DUNGEONS,ACHIEVEMENTS};
+})();
