@@ -8,6 +8,9 @@
   <title>성지몬 — 냄새 차원 로그라이트</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23c6ff4a' d='M32 3 57 18v28L32 61 7 46V18z'/%3E%3Cpath fill='%23070814' d='m32 12 16 10v19L32 51 16 41V22z'/%3E%3Ccircle cx='26' cy='30' r='3' fill='%23c6ff4a'/%3E%3Ccircle cx='38' cy='30' r='3' fill='%23c6ff4a'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .run-stat{font-size:.8rem;color:var(--muted)}.capture-row{display:flex;align-items:center;gap:12px;margin-top:10px}.capture-button{min-width:210px;border:1px solid #54d9ff88;border-radius:13px;background:linear-gradient(135deg,#162b3d,#14202d);color:#b7efff;padding:12px 16px;font-weight:950;cursor:pointer;transition:.2s}.capture-button:hover{border-color:var(--cyan);box-shadow:0 0 20px #54d9ff20;transform:translateY(-1px)}.capture-button:disabled{opacity:.42;cursor:not-allowed;transform:none;box-shadow:none}.capture-row small{color:var(--muted);font-size:.72rem;line-height:1.45}@media(max-width:850px){.capture-row{align-items:stretch;flex-direction:column}.capture-row small{text-align:center}.capture-button{width:100%}}
+  </style>
 </head>
 <body>
   <div class="grain" aria-hidden="true"></div>
@@ -18,7 +21,7 @@
         <span><strong>성지몬</strong><small>SMELL DIMENSION</small></span>
       </button>
       <div class="resources" aria-label="보유 자원">
-        <div><span>🎟</span><b id="ticket-count">0</b><small>티켓</small></div>
+        <div><span>▣</span><b id="best-count">0</b><small>최고 구역</small></div>
         <div><span>◆</span><b id="owned-count">1</b><small>도감</small></div>
         <button id="achievements-open" class="resource-button" aria-label="업적 보기"><span>🏆</span><b id="achievement-count">0</b><small>업적</small></button>
         <button id="sound-toggle" class="icon-button" aria-label="소리 켜기 또는 끄기">♪</button>
@@ -29,13 +32,13 @@
       <div class="lobby-copy">
         <p class="eyebrow">차원 균열 감지 · 시즌 01</p>
         <h1>지냄으로<br><em>세상을 제패해라.</em></h1>
-        <p class="lead">지냄을 편성하고 냄새 던전을 돌파해라. 쓰러지면 이번 원정은 끝나지만, 획득한 지냄과 티켓은 남는다.</p>
+        <p class="lead">지냄을 편성하고 냄새 던전을 돌파해라. 적의 체력을 낮춰 포획하고, 쓰러지기 전에 더 깊은 구역까지 전진해라.</p>
         <div class="lobby-actions">
           <button id="start-run" class="primary-button">던전 선택 <span>→</span></button>
-          <button class="secondary-button" data-go="gacha">지냄 뽑기</button>
+          <button class="secondary-button" data-go="collection">지냄 도감</button>
           <button class="secondary-button" data-go="achievements">업적</button>
         </div>
-        <p class="safe-note">뽑기는 던전에서 얻은 무료 티켓만 사용하며 유료 결제는 없다.</p>
+        <p class="safe-note">조우한 적의 HP가 낮을수록 포획 성공률이 올라간다. 성지온은 포획할 수 없다.</p>
       </div>
       <div class="lobby-display" aria-label="대표 지냄 전시">
         <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
@@ -47,7 +50,7 @@
       <nav class="dock" aria-label="주 메뉴">
         <button class="active" data-go="lobby">⌂<span>로비</span></button>
         <button data-go="collection">◇<span>도감</span></button>
-        <button data-go="gacha">✦<span>뽑기</span></button>
+        <button data-go="achievements">🏆<span>업적</span></button>
       </nav>
     </section>
 
@@ -66,7 +69,7 @@
       <div class="run-header">
         <button id="abandon-run" class="text-button">← 원정 포기</button>
         <div class="floor-track"><span id="floor-label">1구역</span><div id="floor-pips"></div></div>
-        <div class="run-tickets">이번 원정 <b id="run-tickets">0</b> 🎟</div>
+        <div class="run-stat">이번 원정 포획 <b id="run-captures">0</b></div>
       </div>
       <div class="arena">
         <div class="combatant player-side">
@@ -85,28 +88,16 @@
       </div>
       <div class="battle-console">
         <div id="battle-log" class="battle-log" aria-live="polite">공간이 일그러지며 지냄이 나타났다.</div>
+        <div class="capture-row"><button id="capture-button" class="capture-button">◉ 포획 시도</button><small id="capture-hint">적의 HP를 낮추면 성공률이 올라간다.</small></div>
         <div id="move-grid" class="move-grid"></div>
       </div>
-    </section>
-
-    <section id="screen-gacha" class="screen gacha-screen">
-      <div class="section-head"><div><p class="eyebrow">DIMENSION EXPLORATION</p><h2>차원 후보 탐사</h2></div><button class="close-button" data-go="lobby">×</button></div>
-      <div class="summon-machine">
-        <div class="summon-core"><span>?</span><i></i><i></i><i></i></div>
-        <h3>냄새 차원의 후보 탐사</h3>
-        <p>티켓 한 장으로 서로 다른 후보 3종을 발견한다.<br>후보를 확인한 뒤 원하는 지냄 하나를 직접 선택해 확정 획득한다.</p>
-        <div class="odds" id="odds-list"></div>
-        <button id="pull-once" class="primary-button">후보 3종 탐색 <span>🎟 1</span></button>
-        <small id="pity-text">Smell 이상 후보 보장까지 10회</small>
-      </div>
-      <nav class="dock" aria-label="주 메뉴"><button data-go="lobby">⌂<span>로비</span></button><button data-go="collection">◇<span>도감</span></button><button class="active" data-go="gacha">✦<span>뽑기</span></button></nav>
     </section>
 
     <section id="screen-collection" class="screen collection-screen">
       <div class="section-head"><div><p class="eyebrow">JINAEM ARCHIVE</p><h2>지냄 도감</h2></div><button class="close-button" data-go="lobby">×</button></div>
       <div id="grade-filters" class="filters"></div>
       <div id="collection-grid" class="collection-grid"></div>
-      <nav class="dock" aria-label="주 메뉴"><button data-go="lobby">⌂<span>로비</span></button><button class="active" data-go="collection">◇<span>도감</span></button><button data-go="gacha">✦<span>뽑기</span></button></nav>
+      <nav class="dock" aria-label="주 메뉴"><button data-go="lobby">⌂<span>로비</span></button><button class="active" data-go="collection">◇<span>도감</span></button><button data-go="achievements">🏆<span>업적</span></button></nav>
     </section>
 
     <section id="screen-detail" class="screen detail-screen">
@@ -115,21 +106,18 @@
     </section>
 
     <section id="screen-achievements" class="screen achievements-screen">
-      <div class="section-head"><div><p class="eyebrow">ACHIEVEMENT BOARD</p><h2>업적</h2><p class="section-copy">조건을 달성하면 자동으로 기록되고 최초 달성 보상을 받는다.</p></div><button class="close-button" data-go="lobby">×</button></div>
+      <div class="section-head"><div><p class="eyebrow">ACHIEVEMENT BOARD</p><h2>업적</h2><p class="section-copy">조건을 달성하면 원정 기록에 자동으로 남는다.</p></div><button class="close-button" data-go="lobby">×</button></div>
       <div id="achievement-grid" class="achievement-grid"></div>
     </section>
 
     <section id="screen-gameover" class="screen result-screen">
       <p class="eyebrow">EXPEDITION OVER</p><h2>잔향만 남았다.</h2>
       <div class="result-shape"><div class="monster-figure shape-cube grade-fragrance defeated"></div></div>
-      <div class="result-stats"><div><small>도달 구역</small><b id="result-floor">1</b></div><div><small>격파한 지냄</small><b id="result-wins">0</b></div><div><small>획득 티켓</small><b id="result-tickets">0</b></div></div>
+      <div class="result-stats"><div><small>도달 구역</small><b id="result-floor">1</b></div><div><small>격파·포획</small><b id="result-wins">0</b></div><div><small>포획 성공</small><b id="result-captures">0</b></div></div>
       <button id="retry-run" class="primary-button">다시 도전 <span>↻</span></button><button class="secondary-button" data-go="lobby">로비로</button>
     </section>
   </main>
 
-  <div id="summon-overlay" class="summon-overlay" role="dialog" aria-modal="true" aria-labelledby="candidate-title">
-    <div class="summon-rays"></div><div class="candidate-dialog"><p class="eyebrow">SELECT ONE JINAEM</p><h2 id="candidate-title">발견한 후보 중 하나를 선택해라</h2><p>선택한 지냄을 즉시 확정 획득한다.</p><div id="summon-candidates" class="summon-candidates"></div></div>
-  </div>
   <div id="reward-overlay" class="reward-overlay" role="dialog" aria-modal="true"><div class="reward-card"><p id="reward-quality" class="eyebrow">ROOM CLEAR</p><h2>전리품 선택</h2><p id="reward-context" class="reward-context"></p><div id="reward-options"></div></div></div>
   <div id="toast" class="toast" aria-live="polite"></div>
   <script src="data.js"></script>
