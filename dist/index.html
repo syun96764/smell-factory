@@ -90,14 +90,14 @@
     </section>
 
     <section id="screen-gacha" class="screen gacha-screen">
-      <div class="section-head"><div><p class="eyebrow">DIMENSION SUMMON</p><h2>차원 뽑기</h2></div><button class="close-button" data-go="lobby">×</button></div>
+      <div class="section-head"><div><p class="eyebrow">DIMENSION EXPLORATION</p><h2>차원 후보 탐사</h2></div><button class="close-button" data-go="lobby">×</button></div>
       <div class="summon-machine">
         <div class="summon-core"><span>?</span><i></i><i></i><i></i></div>
-        <h3>냄새 차원의 균열</h3>
-        <p>티켓 한 장으로 무작위 지냄을 소환한다.<br>30회 안에 Smell 이상이 반드시 출현한다.</p>
+        <h3>냄새 차원의 후보 탐사</h3>
+        <p>티켓 한 장으로 서로 다른 후보 3종을 발견한다.<br>후보를 확인한 뒤 원하는 지냄 하나를 직접 선택해 확정 획득한다.</p>
         <div class="odds" id="odds-list"></div>
-        <button id="pull-once" class="primary-button">1회 소환 <span>🎟 1</span></button>
-        <small id="pity-text">Smell 이상 확정까지 30회</small>
+        <button id="pull-once" class="primary-button">후보 3종 탐색 <span>🎟 1</span></button>
+        <small id="pity-text">Smell 이상 후보 보장까지 10회</small>
       </div>
       <nav class="dock" aria-label="주 메뉴"><button data-go="lobby">⌂<span>로비</span></button><button data-go="collection">◇<span>도감</span></button><button class="active" data-go="gacha">✦<span>뽑기</span></button></nav>
     </section>
@@ -127,8 +127,8 @@
     </section>
   </main>
 
-  <div id="summon-overlay" class="summon-overlay" role="dialog" aria-modal="true" aria-labelledby="summon-result-name">
-    <div class="summon-rays"></div><p id="summon-result-grade">SCENT</p><div id="summon-result-figure" class="monster-figure shape-octa grade-scent"></div><h2 id="summon-result-name">도시 한 블록을 감싸는 지온냄새</h2><p id="summon-new">NEW!</p><button id="summon-close" class="primary-button">확인</button>
+  <div id="summon-overlay" class="summon-overlay" role="dialog" aria-modal="true" aria-labelledby="candidate-title">
+    <div class="summon-rays"></div><div class="candidate-dialog"><p class="eyebrow">SELECT ONE JINAEM</p><h2 id="candidate-title">발견한 후보 중 하나를 선택해라</h2><p>선택한 지냄을 즉시 확정 획득한다.</p><div id="summon-candidates" class="summon-candidates"></div></div>
   </div>
   <div id="reward-overlay" class="reward-overlay" role="dialog" aria-modal="true"><div class="reward-card"><p id="reward-quality" class="eyebrow">ROOM CLEAR</p><h2>전리품 선택</h2><p id="reward-context" class="reward-context"></p><div id="reward-options"></div></div></div>
   <div id="toast" class="toast" aria-live="polite"></div>
