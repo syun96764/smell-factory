@@ -38,6 +38,11 @@ const MONSTERS=rawMonsters.map(([id,g,shape,form,name,ability],index)=>{
  const typeNames=[primary,secondary].filter(Boolean).map(id=>TYPES.find(t=>t.id===id).name).join('·');
  return{id,g,shape,form,name,ability,variant,types:[primary,secondary].filter(Boolean),stats,description:`${form} 구조 안에 ${typeNames} 계열 잔향을 압축한 지냄이다. ${name}라는 기록명처럼 주변 공간에 독특한 냄새 현상을 일으키며, ${ABILITIES[ability].name} 특성으로 전투 흐름을 바꾼다.`};
 });
+const XION_BOSS={
+ id:'boss-seongjion',g:5,shape:'cube',form:'초월 테서랙트',name:'성지온',ability:'sovereignty',variant:5,
+ types:['smell','dark'],stats:[210,165,155,190,165,145],boss:true,
+ description:'XION 심층의 가장 아래에서 모든 지온냄새를 지휘하는 최종보스다.'
+};
 const MOVES={
  trace:{name:'잔향 톡톡',type:'smell',category:'physical',desc:'작지만 확실한 냄새 입자',power:35,acc:100,pp:12,tag:'필중'},
  mist:{name:'후각 교란 안개',type:'ghost',category:'special',desc:'상대 명중률을 낮춘다',power:28,acc:92,pp:8,tag:'명중↓',effect:'accuracy',chance:100},
@@ -61,7 +66,7 @@ const DUNGEONS=[
  {id:'sewer',name:'잔향 하수도',difficulty:'EASY',index:0,desc:'약한 잔향이 모이는 입문 던전.',floors:6,minG:0,maxG:1,scale:.82,ticket:.58,bonus:2,color:'#c6ff4a'},
  {id:'lab',name:'역풍 연구소',difficulty:'NORMAL',index:1,desc:'실험 장치가 부가효과를 증폭하는 표준 던전.',floors:8,minG:0,maxG:2,scale:1,ticket:.65,bonus:3,color:'#42f5cd'},
  {id:'sky',name:'대기권 균열',difficulty:'HARD',index:2,desc:'Odor와 Smell이 모습을 드러내는 고난도 던전.',floors:10,minG:1,maxG:4,scale:1.18,ticket:.73,bonus:5,color:'#c066ff'},
- {id:'xion',name:'XION 심층',difficulty:'NIGHTMARE',index:3,desc:'Xion 등급이 최종 구역을 지배하는 극한 던전.',floors:12,minG:2,maxG:5,scale:1.4,ticket:.82,bonus:8,color:'#ff4fb0'}
+ {id:'xion',name:'XION 심층',difficulty:'NIGHTMARE',index:3,desc:'최종 구역에서 성지온이 기다리는 극한 던전.',floors:12,minG:2,maxG:5,scale:1.4,ticket:.82,bonus:8,color:'#ff4fb0'}
 ];
 const ACHIEVEMENTS=[
  {id:'first_win',icon:'⚔',name:'첫 번째 잔향',desc:'지냄을 처음으로 격파한다.',reward:1},
@@ -74,5 +79,5 @@ const ACHIEVEMENTS=[
  {id:'pp_master',icon:'▣',name:'마지막 한 수',desc:'PP가 1 남은 기술로 적을 격파한다.',reward:2},
  {id:'rich',icon:'🎟',name:'균열 티켓 부자',desc:'티켓을 15장 이상 보유한다.',reward:3}
 ];
-window.GAME_DATA={GRADES,TYPES,TYPE_STRONG,ABILITIES,MONSTERS,MOVES,MOVE_SETS,DUNGEONS,ACHIEVEMENTS};
+window.GAME_DATA={GRADES,TYPES,TYPE_STRONG,ABILITIES,MONSTERS,XION_BOSS,MOVES,MOVE_SETS,DUNGEONS,ACHIEVEMENTS};
 })();
