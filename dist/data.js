@@ -51,21 +51,21 @@ const XION_BOSS={
 };
 const MOVES={
  trace:{name:'잔향 톡톡',type:'smell',category:'physical',desc:'작지만 확실한 냄새 입자',power:35,acc:100,pp:12,tag:'필중'},
- mist:{name:'후각 교란 안개',type:'ghost',category:'special',desc:'상대 명중률을 낮춘다',power:28,acc:92,pp:8,tag:'명중↓',effect:'accuracy',chance:100},
- solid:{name:'입체 냄새 고체화',type:'marae',category:'physical',desc:'보호막을 생성한다',power:32,acc:94,pp:7,tag:'보호막',effect:'shield',chance:100},
+ mist:{name:'후각 교란 안개',type:'ghost',category:'special',desc:'상대 명중률을 낮춘다',power:28,acc:96,pp:8,tag:'명중↓',effect:'accuracy',chance:100},
+ solid:{name:'입체 냄새 고체화',type:'marae',category:'physical',desc:'보호막을 생성한다',power:32,acc:98,pp:7,tag:'보호막',effect:'shield',chance:100},
  rest:{name:'잔향 재충전',type:'smell',category:'status',desc:'35% 회복하지만 방어가 감소한다',power:0,acc:100,pp:4,tag:'회복·방어↓',effect:'rest',chance:100},
- vent:{name:'환풍기 역회전',type:'bug',category:'special',desc:'상대 공격력을 낮춘다',power:38,acc:88,pp:8,tag:'공격↓',effect:'attackDown',chance:65},
- compress:{name:'지온냄새 압축포',type:'smell',category:'special',desc:'치명타 확률이 높은 농축탄',power:52,acc:83,pp:6,tag:'급소 +25%',crit:25},
+ vent:{name:'환풍기 역회전',type:'bug',category:'special',desc:'상대 공격력을 낮춘다',power:38,acc:94,pp:8,tag:'공격↓',effect:'attackDown',chance:65},
+ compress:{name:'지온냄새 압축포',type:'smell',category:'special',desc:'치명타 확률이 높은 농축탄',power:52,acc:90,pp:6,tag:'급소 +25%',crit:25},
  deodorize:{name:'공간 탈취 불가 선언',type:'dark',category:'status',desc:'체력을 회복하고 보호막을 친다',power:0,acc:100,pp:4,tag:'회복·보호막',effect:'healShield',chance:100},
- pierce:{name:'기하 관통 잔향',type:'marae',category:'physical',desc:'상대 방어 강화를 무시한다',power:48,acc:90,pp:7,tag:'방어 무시',pierce:true},
- rewrite:{name:'대기권 향기 재작성',type:'marae',category:'special',desc:'특수공격이 오르지만 반동을 받는다',power:59,acc:76,pp:5,tag:'특공↑·반동',effect:'specialUp',recoil:.08,chance:100},
- inverse:{name:'역방향 냄새 흡입',type:'bug',category:'physical',desc:'피해의 35%를 흡수한다',power:50,acc:84,pp:6,tag:'흡수 35%',drain:.35},
- paradox:{name:'초신성 방향제 역설',type:'dark',category:'special',desc:'상대 특수방어를 크게 낮춘다',power:61,acc:72,pp:5,tag:'특방↓↓',effect:'specialDefenseDown',chance:70},
- singularity:{name:'잔향 특이점',type:'ghost',category:'special',desc:'3턴 동안 지속 피해를 준다',power:64,acc:68,pp:4,tag:'지속 피해',effect:'dot',chance:75},
- galaxy:{name:'은하 진동성 잔향파',type:'ghost',category:'special',desc:'낮은 확률로 상대 행동을 봉쇄한다',power:70,acc:67,pp:4,tag:'행동 봉쇄',effect:'stun',chance:35},
- overclock:{name:'후각기관 초과가동',type:'bug',category:'physical',desc:'고명중 공격 후 큰 반동을 받는다',power:68,acc:96,pp:5,tag:'반동 15%',recoil:.15},
- dimension:{name:'차원 환기구 폐쇄',type:'dark',category:'physical',desc:'보호막을 파괴하고 강화를 초기화한다',power:72,acc:75,pp:4,tag:'강화 해제',effect:'dispel',chance:100},
- collapse:{name:'절대후각 차원붕괴',type:'smell',category:'special',desc:'최대 위력 대신 체력을 크게 소모한다',power:92,acc:58,pp:3,tag:'반동 20%',recoil:.20}
+ pierce:{name:'기하 관통 잔향',type:'marae',category:'physical',desc:'상대 방어 강화를 무시한다',power:48,acc:95,pp:7,tag:'방어 무시',pierce:true},
+ rewrite:{name:'대기권 향기 재작성',type:'marae',category:'special',desc:'특수공격이 오르지만 반동을 받는다',power:59,acc:86,pp:5,tag:'특공↑·반동',effect:'specialUp',recoil:.08,chance:100},
+ inverse:{name:'역방향 냄새 흡입',type:'bug',category:'physical',desc:'피해의 35%를 흡수한다',power:50,acc:92,pp:6,tag:'흡수 35%',drain:.35},
+ paradox:{name:'초신성 방향제 역설',type:'dark',category:'special',desc:'상대 특수방어를 크게 낮춘다',power:61,acc:84,pp:5,tag:'특방↓↓',effect:'specialDefenseDown',chance:70},
+ singularity:{name:'잔향 특이점',type:'ghost',category:'special',desc:'3턴 동안 지속 피해를 준다',power:64,acc:82,pp:4,tag:'지속 피해',effect:'dot',chance:75},
+ galaxy:{name:'은하 진동성 잔향파',type:'ghost',category:'special',desc:'낮은 확률로 상대 행동을 봉쇄한다',power:70,acc:80,pp:4,tag:'행동 봉쇄',effect:'stun',chance:35},
+ overclock:{name:'후각기관 초과가동',type:'bug',category:'physical',desc:'고명중 공격 후 큰 반동을 받는다',power:68,acc:100,pp:5,tag:'반동 15%',recoil:.15},
+ dimension:{name:'차원 환기구 폐쇄',type:'dark',category:'physical',desc:'보호막을 파괴하고 강화를 초기화한다',power:72,acc:88,pp:4,tag:'강화 해제',effect:'dispel',chance:100},
+ collapse:{name:'절대후각 차원붕괴',type:'smell',category:'special',desc:'최대 위력 대신 체력을 크게 소모한다',power:92,acc:75,pp:3,tag:'반동 20%',recoil:.20}
 };
 const MOVE_SETS=[['trace','mist','solid','rest'],['vent','compress','deodorize','pierce'],['mist','inverse','rewrite','solid'],['paradox','singularity','dimension','deodorize'],['galaxy','overclock','inverse','rewrite'],['collapse','dimension','galaxy','singularity']];
 const DUNGEONS=[
