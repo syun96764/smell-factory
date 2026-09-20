@@ -8,7 +8,7 @@ const TYPES=[
  {id:'smell',name:'냄새',color:'#c6ff4a'},{id:'bug',name:'벌레',color:'#67df8a'},{id:'dark',name:'악',color:'#9d86c8'},
  {id:'marae',name:'마래',color:'#ff9d4d'},{id:'ghost',name:'고스트',color:'#70a8ff'}
 ];
-const TYPE_STRONG={smell:'marae',marae:'bug',bug:'dark',dark:'ghost',ghost:'smell'};
+const TYPE_STRONG={smell:['marae','bug'],marae:['bug','dark'],bug:['dark','ghost'],dark:['ghost','smell'],ghost:['smell','marae']};
 const ABILITIES={
  veil:{name:'향기 장막',desc:'전투마다 처음 받는 피해 35% 감소'},reflux:{name:'역류 기관',desc:'기술이 빗나가면 최대 HP의 8% 회복'},
  resonance:{name:'기하 공명',desc:'같은 기술을 연속 사용하면 위력 25% 증가'},diffuse:{name:'고체 확산',desc:'모든 공격 기술의 위력 10% 증가'},
@@ -84,7 +84,18 @@ const ACHIEVEMENTS=[
  {id:'collector36',icon:'◈',name:'잔향 연구자',desc:'서로 다른 지냄 36종을 모은다.'},
  {id:'collector72',icon:'⬢',name:'완전한 도감',desc:'지냄 72종을 모두 모은다.'},
  {id:'super_hit',icon:'◎',name:'상성 박사',desc:'효과가 굉장한 공격을 처음 적중시킨다.'},
- {id:'pp_master',icon:'▣',name:'마지막 한 수',desc:'PP가 1 남은 기술로 적을 격파한다.'}
+ {id:'pp_master',icon:'▣',name:'마지막 한 수',desc:'PP가 1 남은 기술로 적을 격파한다.'},
+ {id:'type_all_smell',icon:'◌',name:'냄새 계보 완성',desc:'냄새 타입 지냄을 모두 모은다.'},
+ {id:'type_all_bug',icon:'◌',name:'벌레 군집 완성',desc:'벌레 타입 지냄을 모두 모은다.'},
+ {id:'type_all_dark',icon:'◌',name:'악의 잔향 완성',desc:'악 타입 지냄을 모두 모은다.'},
+ {id:'type_all_marae',icon:'◌',name:'마래 도감 완성',desc:'마래 타입 지냄을 모두 모은다.'},
+ {id:'type_all_ghost',icon:'◌',name:'고스트 기록 완성',desc:'고스트 타입 지냄을 모두 모은다.'},
+ {id:'grade_all_fragrance',icon:'◆',name:'Fragrance 완전 수집',desc:'Fragrance 등급 지냄을 모두 모은다.'},
+ {id:'grade_all_aroma',icon:'◆',name:'Aroma 완전 수집',desc:'Aroma 등급 지냄을 모두 모은다.'},
+ {id:'grade_all_scent',icon:'◆',name:'Scent 완전 수집',desc:'Scent 등급 지냄을 모두 모은다.'},
+ {id:'grade_all_odor',icon:'◆',name:'Odor 완전 수집',desc:'Odor 등급 지냄을 모두 모은다.'},
+ {id:'grade_all_smell',icon:'◆',name:'Smell 완전 수집',desc:'Smell 등급 지냄을 모두 모은다.'},
+ {id:'grade_all_xion',icon:'◆',name:'Xion 완전 수집',desc:'Xion 등급 지냄을 모두 모은다.'}
 ];
 window.GAME_DATA={GRADES,TYPES,TYPE_STRONG,ABILITIES,MONSTERS,XION_BOSS,MOVES,MOVE_SETS,DUNGEONS,ACHIEVEMENTS};
 })();
