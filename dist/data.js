@@ -42,13 +42,30 @@ const MONSTERS=rawMonsters.map(([id,g,shape,form,name,ability],index)=>{
  const variant=index%6,boost=g*9,stats=ARCHETYPES[variant].map((v,i)=>v+boost+(i===0?g*2:0));
  const primary=TYPES[(g+variant)%5].id,secondary=(variant===2||variant===5)?TYPES[(g+variant+2)%5].id:null;
  const typeNames=[primary,secondary].filter(Boolean).map(id=>TYPES.find(t=>t.id===id).name).join('·');
- return{id,g,shape,form,name,ability,variant,types:[primary,secondary].filter(Boolean),stats,description:`${form} 구조 안에 ${typeNames} 계열 잔향을 압축한 지냄이다. ${name}라는 기록명처럼 주변 공간에 독특한 냄새 현상을 일으키며, ${ABILITIES[ability].name} 특성으로 전투 흐름을 바꾼다.`};
+ const trait={id:`trait_${id}`,name:`${form} ${ABILITIES[ability].name} ${index+1}식`,desc:`${ABILITIES[ability].desc}. ${form} 구조에 맞게 변형된 이 지냄만의 고유 특성이다.`};
+ return{id,g,shape,form,name,ability,trait,variant,types:[primary,secondary].filter(Boolean),stats,description:`${form} 구조 안에 ${typeNames} 계열 잔향을 압축한 지냄이다. ${name}라는 기록명처럼 주변 공간에 독특한 냄새 현상을 일으키며, ${trait.name} 특성으로 전투 흐름을 바꾼다.`};
 });
 const XION_BOSS={
  id:'boss-seongjion',g:5,shape:'cube',form:'초월 테서랙트',name:'성지온',ability:'sovereignty',variant:5,
  types:['smell','dark'],stats:[210,165,155,190,165,145],boss:true,
+ trait:{id:'trait_boss_seongjion',name:'초월 테서랙트 냄새 군주',desc:'공격·특수공격·방어·특수방어 8% 강화. 성지온만 사용하는 고유 특성이다.'},
  description:'XION 심층의 가장 아래에서 모든 지온냄새를 지휘하는 최종보스다.'
 };
+const ITEMS=[
+ {id:'half_incense',icon:'♨',name:'피우다 만 향로',desc:'자신의 행동 직전마다 최대 HP의 1/16을 회복한다.',effect:'regen',rarity:0},
+ {id:'slow_pouch',icon:'◼',name:'둔화냄새주머니',desc:'물리공격력이 2배가 되지만 스피드가 1/2배가 된다.',effect:'slowPower',rarity:1},
+ {id:'swift_pouch',icon:'»',name:'신속화냄새주머니',desc:'물리·특수공격이 1/2배가 되고 스피드가 2배가 된다.',effect:'swift',rarity:1},
+ {id:'xion_tear',icon:'◇',name:'지온이의 눈물',desc:'좋은 전리품과 높은 등급 도구가 등장할 확률이 상승한다.',effect:'luck',rarity:2},
+ {id:'xion_blessing',icon:'✦',name:'지온이의 가호',desc:'원정 중 한 번, 쓰러질 공격을 받아도 HP 1로 살아남는다.',effect:'itemEndure',rarity:3},
+ {id:'bug_xion',icon:'⌁',name:'벌레지온',desc:'벌레 타입 공격 기술의 위력이 1.2배 증가한다.',effect:'typeBoost',type:'bug',rarity:1},
+ {id:'ghost_xion',icon:'☾',name:'고스트지온',desc:'고스트 타입 공격 기술의 위력이 1.2배 증가한다.',effect:'typeBoost',type:'ghost',rarity:1},
+ {id:'smell_xion',icon:'◌',name:'냄새지온',desc:'냄새 타입 공격 기술의 위력이 1.2배 증가한다.',effect:'typeBoost',type:'smell',rarity:1},
+ {id:'dark_xion',icon:'◆',name:'악지온',desc:'악 타입 공격 기술의 위력이 1.2배 증가한다.',effect:'typeBoost',type:'dark',rarity:2},
+ {id:'marae_xion',icon:'▲',name:'마래지온',desc:'마래 타입 공격 기술의 위력이 1.2배 증가한다.',effect:'typeBoost',type:'marae',rarity:2},
+ {id:'focus_bottle',icon:'◎',name:'농축 후각병',desc:'모든 기술의 최종 명중률이 10%p 증가한다.',effect:'accuracy',rarity:2},
+ {id:'sealed_shell',icon:'⬡',name:'밀폐 잔향갑',desc:'방어·특수방어가 1.25배가 되지만 스피드가 0.8배가 된다.',effect:'fortress',rarity:2},
+ {id:'echo_core',icon:'∞',name:'공명 핵',desc:'연속으로 같은 공격 기술을 사용하면 추가로 위력이 1.15배 증가한다.',effect:'echo',rarity:3}
+];
 const MOVES={
  trace:{name:'잔향 톡톡',type:'smell',category:'physical',desc:'작지만 확실한 냄새 입자',power:35,acc:100,pp:12,tag:'필중'},
  mist:{name:'후각 교란 안개',type:'ghost',category:'special',desc:'상대 명중률을 낮춘다',power:28,acc:96,pp:8,tag:'명중↓',effect:'accuracy',chance:100},
@@ -97,5 +114,5 @@ const ACHIEVEMENTS=[
  {id:'grade_all_smell',icon:'◆',name:'Smell 완전 수집',desc:'Smell 등급 지냄을 모두 모은다.'},
  {id:'grade_all_xion',icon:'◆',name:'Xion 완전 수집',desc:'Xion 등급 지냄을 모두 모은다.'}
 ];
-window.GAME_DATA={GRADES,TYPES,TYPE_STRONG,ABILITIES,MONSTERS,XION_BOSS,MOVES,MOVE_SETS,DUNGEONS,ACHIEVEMENTS};
+window.GAME_DATA={GRADES,TYPES,TYPE_STRONG,ABILITIES,MONSTERS,XION_BOSS,ITEMS,MOVES,MOVE_SETS,DUNGEONS,ACHIEVEMENTS};
 })();

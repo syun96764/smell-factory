@@ -11,6 +11,9 @@
   <style>
     .run-stat{font-size:.8rem;color:var(--muted)}.capture-row{display:flex;align-items:center;gap:12px;margin-top:6px}.capture-button{min-width:210px;border:1px solid #54d9ff88;border-radius:11px;background:linear-gradient(135deg,#162b3d,#14202d);color:#b7efff;padding:8px 14px;font-weight:950;cursor:pointer;transition:.2s}.capture-button:hover{border-color:var(--cyan);box-shadow:0 0 20px #54d9ff20;transform:translateY(-1px)}.capture-button:disabled{opacity:.42;cursor:not-allowed;transform:none;box-shadow:none}.capture-row small{color:var(--muted);font-size:.72rem;line-height:1.45}.effectiveness{display:inline-flex!important;width:max-content;margin-top:4px!important;border:1px solid currentColor;border-radius:7px;padding:2px 6px;font-size:.62rem!important;font-weight:950}.effect-4{color:#ff5577!important;background:#ff557712}.effect-2{color:#ff9d4d!important;background:#ff9d4d12}.effect-1{color:#d4d7e3!important}.effect-05{color:#54a8ff!important;background:#54a8ff12}.effect-025{color:#9d86c8!important;background:#9d86c812}@media(min-width:851px){.topbar{height:64px}.screen{min-height:calc(100vh - 64px)}.battle-screen{height:calc(100vh - 64px);min-height:590px;padding:8px 4vw 12px;overflow:hidden}.battle-screen.active{display:flex;flex-direction:column}.battle-screen .run-header{margin-bottom:3px}.battle-screen .arena{min-height:0;flex:1}.battle-screen .stage{height:158px}.battle-screen .stage .monster-figure{width:118px;height:118px}.battle-screen .shadow{bottom:10px;width:170px;height:24px}.battle-screen .nameplate{padding:8px 12px}.battle-screen .ability-line{margin-top:4px}.battle-screen .hp-row{padding:7px 12px}.battle-screen .status-row{min-height:20px;padding-top:3px}.battle-screen .battle-console{max-width:1040px;width:100%;margin:3px auto 0}.battle-screen .battle-log{min-height:34px;padding:8px 12px}.battle-screen .move-grid{gap:5px;margin-top:5px}.battle-screen .move-button{min-height:54px;padding:7px 11px}.battle-screen .move-button small{margin-top:2px}}@media(max-width:850px){.capture-row{align-items:stretch;flex-direction:column}.capture-row small{text-align:center}.capture-button{width:100%}}
   </style>
+  <style>
+    .item-select-panel,.collection-search{max-width:1100px;margin:0 auto 20px;border:1px solid var(--line);border-radius:20px;background:#0f1222;padding:18px}.item-select-panel h3{margin:0 0 5px}.item-select-panel>p{margin:0 0 14px;color:var(--muted);font-size:.8rem}.item-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.item-card{border:1px solid var(--line);border-radius:13px;background:#161a2c;color:var(--ink);padding:12px;text-align:left;cursor:pointer;min-height:112px}.item-card:hover,.item-card.selected{border-color:var(--cyan);background:#192536}.item-card>b{display:block;font-size:1.2rem}.item-card strong{display:block;margin:7px 0 4px;font-size:.78rem}.item-card small{display:block;color:var(--muted);font-size:.68rem;line-height:1.4}.team-screen .team-grid{margin-bottom:18px}.team-screen .item-select-panel{margin-bottom:110px}.run-stats{text-align:right;font-size:.75rem;color:var(--muted)}.run-stats b{color:var(--ink)}#run-item{margin-top:4px;color:var(--cyan);font-weight:850}.collection-search{display:grid;grid-template-columns:2fr repeat(5,1fr) auto;gap:9px;align-items:end}.search-field{display:grid;gap:6px}.search-field label{font-size:.68rem;color:var(--muted);font-weight:850}.search-field input,.search-field select{width:100%;min-width:0;border:1px solid var(--line);border-radius:10px;background:#171a2c;color:var(--ink);padding:10px;font:inherit;font-size:.78rem}.search-reset{height:38px;border:1px solid var(--line);border-radius:10px;background:#20243a;color:var(--ink);padding:0 13px;font-weight:850;cursor:pointer}.search-summary{grid-column:1/-1;color:var(--lime);font-size:.74rem;font-weight:850}.stab-badge{display:inline-flex!important;margin-left:5px;padding:2px 5px;border-radius:5px;background:#c6ff4a20;color:var(--lime)!important;font-size:.6rem!important;font-weight:950}@media(max-width:1000px){.collection-search{grid-template-columns:repeat(3,1fr)}.item-grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:700px){.collection-search{grid-template-columns:1fr 1fr}.item-grid{grid-template-columns:1fr 1fr}.search-field:first-child{grid-column:1/-1}.team-screen .item-select-panel{margin-bottom:110px}}@media(max-width:430px){.collection-search,.item-grid{grid-template-columns:1fr}.search-field:first-child{grid-column:auto}}
+  </style>
 </head>
 <body>
   <div class="grain" aria-hidden="true"></div>
@@ -38,7 +41,7 @@
           <button class="secondary-button" data-go="collection">지냄 도감</button>
           <button class="secondary-button" data-go="achievements">업적</button>
         </div>
-        <p class="safe-note">조우한 적의 HP가 낮을수록 포획 성공률이 올라간다.</p>
+        <p class="safe-note">적의 HP가 낮을수록 포획률이 올라가고, 등급이 높을수록 포획하기 어렵다.</p>
       </div>
       <div class="lobby-display" aria-label="대표 지냄 전시">
         <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
@@ -62,6 +65,7 @@
     <section id="screen-team" class="screen team-screen">
       <div class="section-head"><div><p class="eyebrow">CHOOSE YOUR JINAEM</p><h2>출전 지냄 선택</h2><p id="team-dungeon-info" class="section-copy"></p></div><button class="close-button" data-go="dungeons">×</button></div>
       <div id="team-grid" class="team-grid"></div>
+      <section class="item-select-panel"><h3>도구 선택</h3><p>원정에 가져갈 도구 하나를 선택해라. 구역 보상에서 다른 도구로 교체할 수도 있다.</p><div id="item-grid" class="item-grid"></div></section>
       <div class="team-confirm"><div id="selected-summary">출전할 지냄을 선택해라.</div><button id="confirm-team" class="primary-button" disabled>이 지냄으로 진입 <span>→</span></button></div>
     </section>
 
@@ -69,7 +73,7 @@
       <div class="run-header">
         <button id="abandon-run" class="text-button">← 원정 포기</button>
         <div class="floor-track"><span id="floor-label">1구역</span><div id="floor-pips"></div></div>
-        <div class="run-stat">이번 원정 포획 <b id="run-captures">0</b></div>
+        <div class="run-stats"><div>이번 원정 포획 <b id="run-captures">0</b></div><div id="run-item">도구 없음</div></div>
       </div>
       <div class="arena">
         <div class="combatant player-side">
@@ -88,13 +92,22 @@
       </div>
       <div class="battle-console">
         <div id="battle-log" class="battle-log" aria-live="polite">공간이 일그러지며 지냄이 나타났다.</div>
-        <div class="capture-row"><button id="capture-button" class="capture-button">◉ 포획 시도</button><small id="capture-hint">적의 HP를 낮추면 성공률이 올라간다.</small></div>
+        <div class="capture-row"><button id="capture-button" class="capture-button">◉ 포획 시도</button><small id="capture-hint">HP가 낮을수록 쉽고 등급이 높을수록 어렵다.</small></div>
         <div id="move-grid" class="move-grid"></div>
       </div>
     </section>
 
     <section id="screen-collection" class="screen collection-screen">
       <div class="section-head"><div><p class="eyebrow">JINAEM ARCHIVE</p><h2>지냄 도감</h2></div><button class="close-button" data-go="lobby">×</button></div>
+      <section class="collection-search" aria-label="도감 상세 검색">
+        <div class="search-field"><label for="search-name">이름</label><input id="search-name" type="search" placeholder="지냄 이름 검색"></div>
+        <div class="search-field"><label for="search-type">타입</label><select id="search-type"><option value="all">전체 타입</option><option value="smell">냄새</option><option value="bug">벌레</option><option value="dark">악</option><option value="marae">마래</option><option value="ghost">고스트</option></select></div>
+        <div class="search-field"><label for="search-grade">등급</label><select id="search-grade"><option value="all">전체 등급</option><option value="fragrance">Fragrance</option><option value="aroma">Aroma</option><option value="scent">Scent</option><option value="odor">Odor</option><option value="smell">Smell</option><option value="xion">Xion</option></select></div>
+        <div class="search-field"><label for="search-total-min">총 종족값 이상</label><input id="search-total-min" type="number" min="0" step="1" placeholder="예: 500"></div>
+        <div class="search-field"><label for="search-speed-min">스피드 이상</label><input id="search-speed-min" type="number" min="0" step="1" placeholder="최소"></div>
+        <div class="search-field"><label for="search-speed-max">스피드 이하</label><input id="search-speed-max" type="number" min="0" step="1" placeholder="최대"></div>
+        <button id="search-reset" class="search-reset" type="button">초기화</button><div id="search-summary" class="search-summary">72종 표시</div>
+      </section>
       <div id="grade-filters" class="filters"></div>
       <div id="collection-grid" class="collection-grid"></div>
       <nav class="dock" aria-label="주 메뉴"><button data-go="lobby">⌂<span>로비</span></button><button class="active" data-go="collection">◇<span>도감</span></button><button data-go="achievements">🏆<span>업적</span></button></nav>
